@@ -20,9 +20,13 @@
         return <h1>Hello World!</h1>;
       }
 
-      // JSX elements created as constants
-      const greeting = <h2>Welcome to Learning JSX!</h2>;
-      const description = <p>JSX allows you to write HTML in JavaScript.</p>;
+      function Greeting() {
+        return <h2>Welcome to Learning JSX!</h2>;
+      }
+
+      function Description() {
+        return <p>JSX allows you to write HTML in JavaScript.</p>;
+      }
 
       // Accessing the container
       const container = document.getElementById("mydiv");
@@ -30,10 +34,11 @@
 
       // Rendering the JSX elements together
       root.render(
+        //! Always needs to have a single node else React will complain
         <div>
           <Hello />
-          {greeting}
-          {description}
+          <Greeting />
+          <Description />
         </div>
       );
     </script>
