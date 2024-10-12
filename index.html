@@ -15,13 +15,27 @@
     <div id="mydiv"></div>
 
     <script type="text/babel">
+      // JSX element created as a component
       function Hello() {
         return <h1>Hello World!</h1>;
       }
 
+      // JSX elements created as constants
+      const greeting = <h2>Welcome to Learning JSX!</h2>;
+      const description = <p>JSX allows you to write HTML in JavaScript.</p>;
+
+      // Accessing the container
       const container = document.getElementById("mydiv");
       const root = ReactDOM.createRoot(container);
-      root.render(<Hello />);
+
+      // Rendering the JSX elements together
+      root.render(
+        <div>
+          <Hello />
+          {greeting}
+          {description}
+        </div>
+      );
     </script>
   </body>
 </html>
