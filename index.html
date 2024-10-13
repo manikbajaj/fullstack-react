@@ -19,7 +19,8 @@
       function Hello(props) {
         return (
           <h1>
-            Hello, {props.firstName} {props.lastName}!
+            Hello, {props.firstName} {props.lastName}! You are{" "}
+            {new Date().getFullYear() - parseInt(props.birthYear)}
           </h1>
         );
       }
@@ -38,17 +39,18 @@
       const container = document.getElementById("mydiv");
       const root = ReactDOM.createRoot(container);
 
+      // Defining a variable
+      let user = "John";
+
       // Rendering the JSX elements with different use cases for props
       root.render(
         <div>
           {/* Passing props normally */}
-          <Hello firstName="Mark" lastName="32" />
+          <Hello firstName="Mark" lastName="Doe" birthYear="1990" />
 
-          {/* Greeting component using the default prop value */}
-          <Greeting />
+          {user === "John" ? <Greeting username="John" /> : <Greeting />}
 
-          {/* Passing a custom prop value */}
-          <Greeting username="John" />
+          {user === "John" && <Greeting username="John" />}
 
           {/* Description with custom prop and default prop */}
           <Description text="Props can have default values too!" />
