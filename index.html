@@ -15,29 +15,43 @@
     <div id="mydiv"></div>
 
     <script type="text/babel">
-      // JSX element created as a component
-      function Hello() {
-        return <h1>Hello World!</h1>;
+      // 1. Destructuring props in the Hello component
+      function Hello(props) {
+        return (
+          <h1>
+            Hello, {props.firstName} {props.lastName}!
+          </h1>
+        );
       }
 
-      function Greeting() {
-        return <h2>Welcome to Learning JSX!</h2>;
+      // 2. Default prop value in Greeting component
+      function Greeting({ username = "Guest" } = props) {
+        return <h2>Welcome, {username}!</h2>;
       }
 
-      function Description() {
-        return <p>JSX allows you to write HTML in JavaScript.</p>;
+      // 3. Destructuring without equality and default value in Description component
+      function Description({ text = "This is a default description." }) {
+        return <p>{text}</p>;
       }
 
       // Accessing the container
       const container = document.getElementById("mydiv");
       const root = ReactDOM.createRoot(container);
 
-      // Rendering the JSX elements together
+      // Rendering the JSX elements with different use cases for props
       root.render(
-        //! Always needs to have a single node else React will complain
         <div>
-          <Hello />
+          {/* Passing props normally */}
+          <Hello firstName="Mark" lastName="32" />
+
+          {/* Greeting component using the default prop value */}
           <Greeting />
+
+          {/* Passing a custom prop value */}
+          <Greeting username="John" />
+
+          {/* Description with custom prop and default prop */}
+          <Description text="Props can have default values too!" />
           <Description />
         </div>
       );
