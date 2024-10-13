@@ -1,6 +1,14 @@
+import PropTypes from "prop-types";
 import styles from "./userProfile.module.css";
 
-export default function UserProfile({ firstName, lastName, skills } = props) {
+export default function UserProfile(props) {
+  // ! Adding default props helps you get rid of some runtime errors
+  const {
+    firstName = "First Name Not Provided",
+    lastName = "Last Name Not Provided",
+    skills = "Skills Not added",
+  } = props;
+
   return (
     <>
       <section>
@@ -13,3 +21,9 @@ export default function UserProfile({ firstName, lastName, skills } = props) {
     </>
   );
 }
+
+UserProfile.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string,
+  skills: PropTypes.string.isRequired,
+};

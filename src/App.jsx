@@ -16,14 +16,17 @@ function App() {
   return (
     <>
       <UserProfile
-        firstName={user.firstName}
+        // Considered as an invalid propType
+        // No validation for undefined
+        firstName={24}
         lastName={user.lastName}
         skills={user.skills}
       />
       <UserProfile
         firstName={user2.firstName}
         lastName={user2.lastName}
-        skills={user2.skills}
+        // Commenting out skills will also produce error
+        //skills={user2.skills}
       />
     </>
   );
