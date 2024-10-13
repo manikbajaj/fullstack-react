@@ -1,7 +1,9 @@
+import UserProfile from "./components/UserProfile/userProfile.jsx";
+
 function App() {
   return (
     <>
-      <p>Hello World</p>
+      <UserProfile />
     </>
   );
 }
