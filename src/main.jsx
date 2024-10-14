@@ -1,11 +1,6 @@
 import "./index.css";
 
-import {
-  Link,
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { Link, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
