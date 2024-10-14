@@ -1,25 +1,10 @@
 import "./index.css";
 
-import { Link, RouterProvider, createBrowserRouter } from "react-router-dom";
-
+import { RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { router } from "./routes.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <div>
-        <h1>Hello World</h1>
-        <Link to="login">Login</Link>
-      </div>
-    ),
-  },
-  {
-    path: "login",
-    element: <div>Login</div>,
-  },
-]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
