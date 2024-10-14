@@ -16,13 +16,13 @@ const router = createBrowserRouter([
     element: (
       <div>
         <h1>Hello World</h1>
-        <Link to="about">About Us</Link>
+        <Link to="login">Login</Link>
       </div>
     ),
   },
   {
-    path: "about",
-    element: <div>About</div>,
+    path: "login",
+    element: <div>Login</div>,
   },
 ]);
 createRoot(document.getElementById("root")).render(
