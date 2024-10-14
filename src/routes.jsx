@@ -1,4 +1,5 @@
 import Login from "./pages/login/login.jsx";
+import PageNotFound from "./pages/404/404.jsx";
 import Signup from "./pages/signup/signup.jsx";
 import Tasks from "./pages/tasks/tasks.jsx";
 import { createBrowserRouter } from "react-router-dom";
@@ -15,5 +16,9 @@ export const router = createBrowserRouter([
   {
     path: "signup",
     element: <Signup />,
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
