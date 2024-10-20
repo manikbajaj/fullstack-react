@@ -24,9 +24,6 @@ export function TaskPagination() {
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
           <PaginationNext href="#" />
         </PaginationItem>
       </PaginationContent>
