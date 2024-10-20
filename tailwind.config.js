@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class"], // Make sure this is set
+  darkMode: ["selector"], // Make sure this is set
   content: ["./index.html", "./src/**/*.{html,js,css,jsx}"],
   theme: {
     extend: {
