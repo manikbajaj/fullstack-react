@@ -1,3 +1,5 @@
+import { TasksCounter } from "@/components/tasksCounter/tasksCounter.jsx";
+
 export default function Tasks() {
   return (
     <section className="flex flex-row w-full p-4 gap-8">
@@ -7,9 +9,9 @@ export default function Tasks() {
             Tasks as on: Wednesday, 1 Jan 2025
           </h1>
           <div className="flex justify-around">
-            <p className="text-white">Counter 1</p>
-            <p className="text-white">Counter 2</p>
-            <p className="text-white">Counter 3</p>
+            <TasksCounter />
+            <TasksCounter />
+            <TasksCounter />
           </div>
         </div>
       </section>
