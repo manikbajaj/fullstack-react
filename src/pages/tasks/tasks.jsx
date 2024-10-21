@@ -1,4 +1,4 @@
-import { FilterBar } from "@/components/filteBar/filterBar.jsx";
+import { FilterBar } from "@/components/filterBar/filterBar.jsx";
 import { Task } from "@/components/task/task.jsx";
 import { TaskSidebar } from "@/components/taskSidebar/taskSidebar.jsx";
 import { TasksCounter } from "@/components/tasksCounter/tasksCounter.jsx";
