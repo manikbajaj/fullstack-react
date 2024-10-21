@@ -5,7 +5,7 @@ const passwordValidation = new RegExp(
   /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
 );
 
-const signupSchema = z.object({
+const SignupSchema = z.object({
   firstName: z
     .string()
     .min(3, {
