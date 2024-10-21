@@ -19,17 +19,28 @@ import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { SignupSchema } from "@/schema/signup.schema.js";
 import { useForm } from "react-hook-form";
+import { useSignup } from "@/hooks/useSignup.hook.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function Signup() {
+  /* Use the Mutation hook */
+  const { mutate, isLoading, isError, isSuccess } = useSignup();
+
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(SignupSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    },
   });
 
   /** Function to handle what will happen when the form is submitted */
   function onSubmit(values) {
-    console.log(values);
+    mutate(values);
+    form.reset();
   }
 
   return (
