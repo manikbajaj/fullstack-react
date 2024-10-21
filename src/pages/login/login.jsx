@@ -18,19 +18,32 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { LoginSchema } from "@/schema/login.schema.js";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useLogin } from "@/hooks/useLogin.hook.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function Login() {
+  const { mutate, isLoading, isError, isSuccess } = useLogin();
+
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   /** Function to handle what will happen when the form is submitted */
   function onSubmit(values) {
-    console.log(values);
+    mutate(values);
+    form.reset();
   }
+
+  useEffect(() => {
+    console.log(isSuccess);
+  }, [isSuccess]);
 
   return (
     <section className="flex flex-row max-w-screen-xl min-h-screen w-full justify-center items-center">
