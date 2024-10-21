@@ -14,9 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 
-export function Task(props) {
-  const { title, description, status, priority, dueDate } = props;
-
+export function Task() {
   return (
     <Card className="w-full mb-8 border-green-300">
       <CardHeader className="flex flex-row justify-between">
