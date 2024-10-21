@@ -32,7 +32,7 @@ export function Task(props) {
   });
 
   return (
-    <Card className="w-full mb-8 border-green-300">
+    <Card className="w-full mb-8">
       <CardHeader className="flex flex-row justify-between">
         <CardTitle className="basis-2/3 leading-8">{title}</CardTitle>
         <div>
