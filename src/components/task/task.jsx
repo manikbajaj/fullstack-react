@@ -14,12 +14,23 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 
-export function Task() {
+export function Task(props) {
+  const { title, description, status, priority, dueDate } = props;
+
   return (
-    <Card className="w-full mb-8">
+    <Card className="w-full mb-8 border-green-300">
       <CardHeader className="flex flex-row justify-between">
-        <CardTitle>The Title Of the Task</CardTitle>
-        <Badge variant="outline">1 Jan, 2025</Badge>
+        <CardTitle className="basis-2/3 leading-8">
+          The Title Of the Task
+        </CardTitle>
+        <div>
+          <Badge className="mr-2" variant="outline">
+            1 Jan, 2025
+          </Badge>
+          <Badge className="bg-sky-800" variant="outline">
+            normal
+          </Badge>
+        </div>
       </CardHeader>
       <CardContent>
         <CardDescription>Description of the task</CardDescription>
