@@ -52,6 +52,7 @@ export function CreateTaskForm() {
     let dueDate = JSON.stringify(values.dueDate);
     console.log(dueDate);
   }
+
   return (
     <div>
       <h2 className="text-xl mb-4">Create a new task</h2>
