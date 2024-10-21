@@ -20,9 +20,9 @@ const createUser = async (user) => {
 export function useSignup() {
   return useMutation({
     mutationFn: createUser,
-    onSuccess: () => {
+    onSuccess: (response) => {
       // This callback is triggered if the mutation is successful
-      console.log("User Created Successfully");
+      console.log("User Created Successfully", response);
     },
     onError: (error) => {
       // Handle error case
