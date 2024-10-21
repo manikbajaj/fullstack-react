@@ -18,13 +18,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { SignupSchema } from "@/schema/signup.schema.js";
+import { Toaster } from "@/components/ui/toaster";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSignup } from "@/hooks/useSignup.hook.js";
+import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+function LoginRedirect() {
+  return (
+    <Button variant="secondary" asChild>
+      <Link to="/">Login Here</Link>
+    </Button>
+  );
+}
 
 export default function Signup() {
   /* Use the Mutation hook */
   const { mutate, isLoading, isError, isSuccess } = useSignup();
+  const { toast } = useToast();
 
   // 1. Define your form.
   const form = useForm({
@@ -42,6 +54,30 @@ export default function Signup() {
     mutate(values);
     form.reset();
   }
+
+  /* Use Effect for success */
+  useEffect(() => {
+    /* Setup code */
+    if (isSuccess) {
+      toast({
+        title: "User Created Successfully",
+        description: "You can not login and start creating tasks",
+        action: <LoginRedirect />,
+      });
+    }
+  }, [isSuccess]);
+
+  /* Use Effect for error */
+  useEffect(() => {
+    /* Setup code */
+    if (isError) {
+      toast({
+        title: "Uh Ho! Your request failed",
+        description: "Possibly the user already exists",
+        variant: "destructive",
+      });
+    }
+  }, [isError]);
 
   return (
     <section className="flex flex-row max-w-screen-xl min-h-screen w-full justify-center items-center">
@@ -125,6 +161,7 @@ export default function Signup() {
           </Form>
         </Card>
       </div>
+      <Toaster />
     </section>
   );
 }
