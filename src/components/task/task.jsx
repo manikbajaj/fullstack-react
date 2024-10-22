@@ -22,6 +22,7 @@ export function Task(props) {
     status = "todo",
     priority = "normal",
     dueDate,
+    id,
   } = props;
 
   // Use toLocaleDateString with options for day, month, and year

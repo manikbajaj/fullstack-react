@@ -1,9 +1,23 @@
 import { FilterBar } from "@/components/filterBar/filterBar.jsx";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Task } from "@/components/task/task.jsx";
 import { TaskSidebar } from "@/components/taskSidebar/taskSidebar.jsx";
 import { TasksCounter } from "@/components/tasksCounter/tasksCounter.jsx";
+import { useFetchTasks } from "@/hooks/useFetchTasks.hook.js";
+import { useState } from "react";
 
 export default function Tasks() {
+  const [order, setOrder] = useState("asc");
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
+
+  const { data, isError, isSuccess, isPending, error } = useFetchTasks({
+    order,
+    limit,
+    page,
+  });
+
+  console.log(data);
   return (
     <section className="flex flex-row w-full p-4 gap-8">
       <section className="flex basis-2/3 justify-center ">
@@ -19,7 +33,29 @@ export default function Tasks() {
             </div>
 
             <FilterBar />
-            <Task dueDate={new Date("2025-01-01T12:00:00.000Z")} />
+
+            {!data && (
+              <div className="flex items-center space-x-4">
+                <Skeleton className="h-12 w-12 rounded-full" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-[250px]" />
+                  <Skeleton className="h-4 w-[200px]" />
+                </div>
+              </div>
+            )}
+
+            {data &&
+              data.data.map((task) => (
+                <Task
+                  key={task["_id"]}
+                  dueDate={new Date(task.dueDate)}
+                  description={task.description}
+                  status={task.status}
+                  priority={task.priority}
+                  title={task.title}
+                  id={task["_id"]}
+                />
+              ))}
           </div>
         </div>
       </section>

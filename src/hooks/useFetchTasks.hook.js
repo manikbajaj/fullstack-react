@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchTasks = async ({ queryKey }) => {
-  const [_key, { order = "asc", limit = 10, page = 1 }] = queryKey;
+  const [_key, { order = "asc", limit = 5, page = 1 }] = queryKey;
   const token = Cookies.get("token");
 
   const url = new URL(`${import.meta.env.VITE_API_URL}tasks`);
