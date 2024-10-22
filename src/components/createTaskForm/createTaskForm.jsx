@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -26,15 +27,19 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { CreateTaskSchema } from "@/schema/createTask.schama.js";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 /* Datepicker imports */
 import { format } from "date-fns";
+import { useCreateTask } from "@/hooks/useCreateTask.hook.js";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export function CreateTaskForm() {
   const [date, setDate] = useState();
+  const { mutate, isSuccess, isError, isPending } = useCreateTask();
+  const { toast } = useToast();
 
   // 1. Define your form.
   const form = useForm({
@@ -47,11 +52,31 @@ export function CreateTaskForm() {
 
   /** Function to handle what will happen when the form is submitted */
   function onSubmit(values) {
-    console.log(values);
-
-    let dueDate = JSON.stringify(values.dueDate);
-    console.log(dueDate);
+    let dueDate = values.dueDate.toISOString();
+    mutate({ ...values, dueDate });
+    form.reset();
   }
+
+  useEffect(() => {
+    /* Setup code */
+    if (isSuccess) {
+      toast({
+        title: "New Task Created",
+      });
+    }
+  }, [isSuccess]);
+
+  /* Use Effect for error */
+  useEffect(() => {
+    /* Setup code */
+    if (isError) {
+      toast({
+        title: "Uh Ho! Your request failed",
+        description: "Please try again",
+        variant: "destructive",
+      });
+    }
+  }, [isError]);
 
   return (
     <div>
@@ -197,6 +222,7 @@ export function CreateTaskForm() {
           </div>
         </form>
       </Form>
+      <Toaster />
     </div>
   );
 }

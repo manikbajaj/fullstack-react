@@ -27,7 +27,7 @@ import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function Login() {
-  const { mutate, isLoading, isError, isSuccess } = useLogin();
+  const { mutate, isError, isSuccess } = useLogin();
   const navigate = useNavigate();
   const [login, setLogin] = useState(false);
   const { toast } = useToast();
