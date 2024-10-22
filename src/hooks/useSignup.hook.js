@@ -1,9 +1,8 @@
-import { API_URL } from "../../constants.js";
 import { useMutation } from "@tanstack/react-query";
 
 // Simulated function to post data to an API endpoint
 const createUser = async (user) => {
-  const response = await fetch(`${API_URL}user/create`, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}user/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
