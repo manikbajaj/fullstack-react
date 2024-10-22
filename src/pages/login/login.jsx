@@ -13,8 +13,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import { AuthContext } from "@/context/auth.context.jsx";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
@@ -27,10 +28,10 @@ import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function Login() {
-  const { mutate, isLoading, isError, isSuccess } = useLogin();
+  const { mutate, data, isLoading, isError, isSuccess } = useLogin();
   const navigate = useNavigate();
-  const [login, setLogin] = useState(false);
   const { toast } = useToast();
+  const { auth, setAuth, token, setToken } = useContext(AuthContext);
 
   // 1. Define your form.
   const form = useForm({
@@ -49,15 +50,18 @@ export default function Login() {
 
   useEffect(() => {
     if (isSuccess) {
-      setLogin(true);
+      setAuth(true);
+      setToken(data.data.accessToken);
     }
+    console.log(auth);
+    console.log(token);
   }, [isSuccess]);
 
   useEffect(() => {
-    if (login) {
+    if (auth) {
       navigate("/tasks");
     }
-  }, [login]);
+  }, [auth]);
 
   /* Use Effect for error */
   useEffect(() => {
