@@ -13,18 +13,24 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { LoginSchema } from "@/schema/login.schema.js";
-import { useEffect } from "react";
+import { Toaster } from "@/components/ui/toaster";
 import { useForm } from "react-hook-form";
 import { useLogin } from "@/hooks/useLogin.hook.js";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function Login() {
   const { mutate, isLoading, isError, isSuccess } = useLogin();
+  const navigate = useNavigate();
+  const [login, setLogin] = useState(false);
+  const { toast } = useToast();
 
   // 1. Define your form.
   const form = useForm({
@@ -42,8 +48,28 @@ export default function Login() {
   }
 
   useEffect(() => {
-    console.log(isSuccess);
+    if (isSuccess) {
+      setLogin(true);
+    }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (login) {
+      navigate("/tasks");
+    }
+  }, [login]);
+
+  /* Use Effect for error */
+  useEffect(() => {
+    /* Setup code */
+    if (isError) {
+      toast({
+        title: "Uh Ho! Your request failed",
+        description: "Please check your login credentials",
+        variant: "destructive",
+      });
+    }
+  }, [isError]);
 
   return (
     <section className="flex flex-row max-w-screen-xl min-h-screen w-full justify-center items-center">
@@ -101,6 +127,7 @@ export default function Login() {
           </Form>
         </Card>
       </div>
+      <Toaster />
     </section>
   );
 }

@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 
 // Simulated function to post data to an API endpoint
@@ -21,7 +22,7 @@ export function useLogin() {
     mutationFn: loginUser,
     onSuccess: (response) => {
       // This callback is triggered if the mutation is successful
-      console.log("User Logged In Successfully", response);
+      Cookies.set("token", response.data.accessToken, { expires: 1 });
     },
     onError: (error) => {
       // Handle error case
