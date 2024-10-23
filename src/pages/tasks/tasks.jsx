@@ -7,6 +7,7 @@ import { TaskSidebar } from "@/components/taskSidebar/taskSidebar.jsx";
 import { TasksContext } from "@/context/tasks.context.jsx";
 import { TasksCounter } from "@/components/tasksCounter/tasksCounter.jsx";
 import { useFetchTasks } from "@/hooks/useFetchTasks.hook.js";
+import { useSearchParams } from "react-router-dom";
 
 function DisplaySkeleton() {
   return (
@@ -21,9 +22,15 @@ function DisplaySkeleton() {
 }
 
 export default function Tasks() {
-  const [order, setOrder] = useState("asc");
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  /* We are now able to grab the query params on this page */
+  let queryLimit = searchParams.get("limit");
+  let queryPage = searchParams.get("page");
+  let queryOrder = searchParams.get("order");
+
+  const [order, setOrder] = useState(queryOrder ?? "asc");
+  const [limit, setLimit] = useState(queryLimit ?? 5);
+  const [page, setPage] = useState(queryPage ?? 1);
   const { tasks, setTasks } = useContext(TasksContext);
 
   const { data, isError, isSuccess, isPending, error } = useFetchTasks({
