@@ -23,6 +23,15 @@ export function useLogin() {
     onSuccess: (response) => {
       // This callback is triggered if the mutation is successful
       Cookies.set("token", response.data.accessToken, { expires: 1 });
+      Cookies.set(
+        "user",
+        JSON.stringify({
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+          email: response.data.email,
+        }),
+        { expires: 1 }
+      );
     },
     onError: (error) => {
       // Handle error case

@@ -84,7 +84,7 @@ export default function Tasks() {
             {data && <FilterBar />}
 
             {!data &&
-              [...Array(queryLimit)].map((entry, index) => (
+              [...Array(5)].map((entry, index) => (
                 <DisplaySkeleton key={`${index}skel`} />
               ))}
 

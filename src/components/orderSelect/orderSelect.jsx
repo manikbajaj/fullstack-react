@@ -22,7 +22,6 @@ export function OrderSelect() {
   let order = tasks
     ? extractQueryString(tasks.pagination.links.next).get("order")
     : undefined;
-  console.log(order);
 
   useEffect(() => {
     if (tasks) {

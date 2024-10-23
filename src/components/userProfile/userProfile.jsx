@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 export function UserProfile(props) {
   const { firstName = "John" } = props;
+
   return (
     <div className="flex flex-col w-full pt-8 items-center">
       <Avatar className="mb-4">
