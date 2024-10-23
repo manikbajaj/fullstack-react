@@ -33,6 +33,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useCreateTask } from "@/hooks/useCreateTask.hook.js";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -40,6 +41,7 @@ export function CreateTaskForm() {
   const [date, setDate] = useState();
   const { mutate, isSuccess, isError, isPending } = useCreateTask();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   // 1. Define your form.
   const form = useForm({
@@ -55,6 +57,10 @@ export function CreateTaskForm() {
     let dueDate = values.dueDate.toISOString();
     mutate({ ...values, dueDate });
     form.reset();
+    queryClient.invalidateQueries({
+      queryKey: ["fetchTasks"],
+      refetchType: "all", // refetch both active and inactive queries
+    });
   }
 
   useEffect(() => {
