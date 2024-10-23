@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {
   Card,
   CardContent,
@@ -8,12 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import PropTypes from "prop-types";
 import { Switch } from "@/components/ui/switch";
+import { useQueryClient } from "@tanstack/react-query";
+import { useUpdateTask } from "@/hooks/useUpdateTask.hook.js";
 
 export function Task(props) {
   const {
@@ -25,12 +26,31 @@ export function Task(props) {
     id,
   } = props;
 
+  const [progress, setProgress] = useState(false);
+  const { mutate, isSuccess } = useUpdateTask();
+  const queryClient = useQueryClient();
+
   // Use toLocaleDateString with options for day, month, and year
   let formattedDate = dueDate.toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
+
+  useEffect(() => {
+    if (status === "inProgress") {
+      setProgress(true);
+    }
+  }, [status]);
+
+  function handleProgressChange(value) {
+    setProgress(value);
+    mutate({ _id: id, status: value ? "inProgress" : "todo" });
+    queryClient.invalidateQueries({
+      queryKey: ["fetchTasks"],
+      refetchType: "all", // refetch both active and inactive queries
+    });
+  }
 
   return (
     <Card className="w-full mb-8">
@@ -63,8 +83,8 @@ export function Task(props) {
       <CardFooter className="flex justify-between">
         <div className="flex flex-row items-center">
           <Switch
-            checked={status === "inProgress" ? true : false}
-            onCheckedChange={() => console.log("Switch Changed")}
+            checked={progress}
+            onCheckedChange={handleProgressChange}
             id="in-progress"
           />
           <Label className="ml-4" htmlFor="in-progress">
