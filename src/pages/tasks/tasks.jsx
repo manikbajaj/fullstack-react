@@ -6,6 +6,18 @@ import { TasksCounter } from "@/components/tasksCounter/tasksCounter.jsx";
 import { useFetchTasks } from "@/hooks/useFetchTasks.hook.js";
 import { useState } from "react";
 
+function DisplaySkeleton() {
+  return (
+    <div className="flex items-center space-x-4 mb-12">
+      <Skeleton className="h-12 w-12 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[500px]" />
+        <Skeleton className="h-4 w-[400px]" />
+      </div>
+    </div>
+  );
+}
+
 export default function Tasks() {
   const [order, setOrder] = useState("asc");
   const [limit, setLimit] = useState(5);
@@ -34,15 +46,10 @@ export default function Tasks() {
 
             <FilterBar />
 
-            {!data && (
-              <div className="flex items-center space-x-4">
-                <Skeleton className="h-12 w-12 rounded-full" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-[250px]" />
-                  <Skeleton className="h-4 w-[200px]" />
-                </div>
-              </div>
-            )}
+            {!data &&
+              [...Array(limit)].map((entry, index) => (
+                <DisplaySkeleton key={`${index}skel`} />
+              ))}
 
             {data &&
               data.data.map((task) => (
