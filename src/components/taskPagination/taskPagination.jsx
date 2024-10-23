@@ -1,25 +1,43 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useContext, useEffect, useState } from "react";
 
 import { TasksContext } from "@/context/tasks.context.jsx";
-import { useContext } from "react";
+
+function extractQueryString(url) {
+  const parsedUrl = new URL(url);
+  const queryString = parsedUrl.search;
+  return queryString;
+}
 
 export function TaskPagination() {
+  const [links, setLinks] = useState();
+  const [meta, setMeta] = useState();
   const { tasks, setTasks } = useContext(TasksContext);
 
-  console.log("From pagination component", tasks);
+  const previousPage = links ? extractQueryString(links.previous) : "#";
+  const nextPage = links ? extractQueryString(links.next) : "#";
+
+  useEffect(() => {
+    if (tasks) {
+      setLinks(tasks.pagination.links);
+      setMeta(tasks.pagination.meta);
+    }
+  }, [tasks]);
+
+  console.log(previousPage);
+  console.log(meta);
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationPrevious href={previousPage} />
         </PaginationItem>
         <PaginationItem>
           <PaginationLink href="#">1</PaginationLink>
@@ -30,7 +48,7 @@ export function TaskPagination() {
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationNext href={nextPage} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
