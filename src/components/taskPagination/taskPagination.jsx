@@ -33,13 +33,13 @@ export function TaskPagination() {
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href={`/tasks?${previousPage}`} />
+          <PaginationPrevious to={`/tasks?${previousPage}`} />
         </PaginationItem>
         {meta
           ? [...Array(meta.totalPages)].map((item, index) => (
               <PaginationItem key={`pag${index}`}>
                 <PaginationLink
-                  href={`/tasks?limit=${meta.itemsPerPage}&page=${
+                  to={`/tasks?limit=${meta.itemsPerPage}&page=${
                     index + 1
                   }&order=${order}`}
                   isActive={index + 1 == meta.currentPage ? true : false}
@@ -50,7 +50,7 @@ export function TaskPagination() {
             ))
           : null}
         <PaginationItem>
-          <PaginationNext href={`/tasks?${nextPage}`} />
+          <PaginationNext to={`/tasks?${nextPage}`} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
