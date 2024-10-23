@@ -52,6 +52,14 @@ export function Task(props) {
     });
   }
 
+  function handleTaskCompleted() {
+    mutate({ _id: id, status: "completed" });
+    queryClient.invalidateQueries({
+      queryKey: ["fetchTasks"],
+      refetchType: "all", // refetch both active and inactive queries
+    });
+  }
+
   return (
     <Card className="w-full mb-8">
       <CardHeader className="flex flex-row justify-between">
@@ -91,7 +99,7 @@ export function Task(props) {
             In Progress
           </Label>
         </div>
-        <Button>Completed</Button>
+        <Button onClick={handleTaskCompleted}>Completed</Button>
       </CardFooter>
     </Card>
   );
