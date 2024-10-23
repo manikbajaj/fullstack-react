@@ -12,8 +12,8 @@ import { TasksContext } from "@/context/tasks.context.jsx";
 
 function extractQueryString(url) {
   const parsedUrl = new URL(url);
-  const queryString = parsedUrl.search;
-  return queryString;
+  const params = new URLSearchParams(parsedUrl.search);
+  return params;
 }
 
 export function TaskPagination() {
@@ -21,8 +21,11 @@ export function TaskPagination() {
   const [meta, setMeta] = useState();
   const { tasks, setTasks } = useContext(TasksContext);
 
-  const previousPage = links ? extractQueryString(links.previous) : "#";
-  const nextPage = links ? extractQueryString(links.next) : "#";
+  const previousPage = links
+    ? extractQueryString(links.previous).toString()
+    : "#";
+  const nextPage = links ? extractQueryString(links.next).toString() : "#";
+  const order = links ? extractQueryString(links.next).get("order") : "#";
 
   useEffect(() => {
     if (tasks) {
@@ -31,13 +34,12 @@ export function TaskPagination() {
     }
   }, [tasks]);
 
-  console.log(previousPage);
   console.log(meta);
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href={previousPage} />
+          <PaginationPrevious href={`/tasks?${previousPage}`} />
         </PaginationItem>
         <PaginationItem>
           <PaginationLink href="#">1</PaginationLink>
@@ -48,7 +50,7 @@ export function TaskPagination() {
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext href={nextPage} />
+          <PaginationNext href={`/tasks?${nextPage}`} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
