@@ -19,9 +19,13 @@ export function OrderSelect() {
   const [query, setQuery] = useState();
   const navigate = useNavigate();
 
+  let order = tasks
+    ? extractQueryString(tasks.pagination.links.next).get("order")
+    : undefined;
+  console.log(order);
+
   useEffect(() => {
     if (tasks) {
-      let order = extractQueryString(tasks.pagination.links.next).get("order");
       let currentPage = extractQueryString(tasks.pagination.links.current);
       let query = currentPage
         ? `/tasks?limit=${currentPage.get("limit")}&page=${currentPage.get(
@@ -29,7 +33,6 @@ export function OrderSelect() {
           )}`
         : "/tasks";
       setQuery(query);
-      setCurrentOrder(order);
     }
   }, [tasks]);
 
@@ -44,7 +47,7 @@ export function OrderSelect() {
 
   return (
     <Select
-      value={currentOrder}
+      value={currentOrder ?? order}
       onValueChange={(value) => setCurrentOrder(value)}
     >
       <SelectTrigger className="w-[140px]">

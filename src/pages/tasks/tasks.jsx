@@ -40,19 +40,16 @@ function todaysDate() {
 export default function Tasks() {
   const [searchParams, setSearchParams] = useSearchParams();
   /* We are now able to grab the query params on this page */
-  let queryLimit = searchParams.get("limit");
-  let queryPage = searchParams.get("page");
-  let queryOrder = searchParams.get("order");
+  let queryLimit = searchParams.get("limit") ?? 5;
+  let queryPage = searchParams.get("page") ?? 1;
+  let queryOrder = searchParams.get("order") ?? "asc";
 
-  const [order, setOrder] = useState(queryOrder ?? "asc");
-  const [limit, setLimit] = useState(queryLimit ?? 5);
-  const [page, setPage] = useState(queryPage ?? 1);
   const { tasks, setTasks } = useContext(TasksContext);
 
   const { data, isError, isSuccess, isPending, error } = useFetchTasks({
-    order,
-    limit,
-    page,
+    order: queryOrder,
+    limit: queryLimit,
+    page: queryPage,
   });
 
   useEffect(() => {
@@ -87,7 +84,7 @@ export default function Tasks() {
             {data && <FilterBar />}
 
             {!data &&
-              [...Array(limit)].map((entry, index) => (
+              [...Array(queryLimit)].map((entry, index) => (
                 <DisplaySkeleton key={`${index}skel`} />
               ))}
 
