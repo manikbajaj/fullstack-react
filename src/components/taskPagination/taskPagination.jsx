@@ -9,12 +9,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 
 import { TasksContext } from "@/context/tasks.context.jsx";
-
-function extractQueryString(url) {
-  const parsedUrl = new URL(url);
-  const params = new URLSearchParams(parsedUrl.search);
-  return params;
-}
+import { extractQueryString } from "@/lib/extractQueryString.js";
 
 export function TaskPagination() {
   const [links, setLinks] = useState();

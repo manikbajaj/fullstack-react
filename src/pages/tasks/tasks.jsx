@@ -21,6 +21,22 @@ function DisplaySkeleton() {
   );
 }
 
+function todaysDate() {
+  const today = new Date();
+
+  // Define options for toLocaleDateString()
+  const options = {
+    weekday: "long", // full name of the day
+    day: "numeric", // numeric day
+    month: "short", // abbreviated month
+    year: "numeric", // numeric year
+  };
+
+  // Format the date
+  const formattedDate = today.toLocaleDateString("en-GB", options);
+  return formattedDate;
+}
+
 export default function Tasks() {
   const [searchParams, setSearchParams] = useSearchParams();
   /* We are now able to grab the query params on this page */
@@ -50,13 +66,22 @@ export default function Tasks() {
       <section className="flex basis-2/3 justify-center ">
         <div className="flex flex-col w-4/5 p-4 items-center">
           <h1 className="text-white font-bold text-2xl mb-8 w-full">
-            Tasks as on: Wednesday, 1 Jan 2025
+            {`Tasks On, ${todaysDate()}`}
           </h1>
           <div className="w-11/12 flex flex-col">
             <div className="flex justify-between mb-16">
-              <TasksCounter count={12} type="todo" />
-              <TasksCounter count={4} type="inProgress" />
-              <TasksCounter count={10} type="completed" />
+              <TasksCounter
+                count={tasks ? tasks.pagination.meta.todoTasks : 0}
+                type="todo"
+              />
+              <TasksCounter
+                count={tasks ? tasks.pagination.meta.inProgressTasks : 0}
+                type="inProgress"
+              />
+              <TasksCounter
+                count={tasks ? tasks.pagination.meta.completedTasks : 0}
+                type="completed"
+              />
             </div>
 
             {data && <FilterBar />}
