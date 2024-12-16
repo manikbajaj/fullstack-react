@@ -44,7 +44,7 @@
 
       // Rendering the JSX elements with different use cases for props
       root.render(
-        <div>
+        <>
           {/* Passing props normally */}
           <Hello firstName="Mark" lastName="Doe" birthYear="1990" />
 
@@ -55,7 +55,7 @@
           {/* Description with custom prop and default prop */}
           <Description text="Props can have default values too!" />
           <Description />
-        </div>
+        </>
       );
     </script>
   </body>
