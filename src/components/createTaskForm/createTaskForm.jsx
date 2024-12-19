@@ -39,10 +39,6 @@ export function CreateTaskForm() {
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(CreateTaskSchema),
-    /*  To get rid of teh state change error add default values */
-    defaultValues: {
-      title: "",
-    },
   });
 
   /** Function to handle what will happen when the form is submitted */
