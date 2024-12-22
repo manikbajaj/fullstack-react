@@ -17,11 +17,13 @@ export function TaskPagination() {
   const [meta, setMeta] = useState();
   const { tasks, setTasks } = useContext(TasksContext);
 
-  const previousPage = links
+  const previousPage = links?.previous
     ? extractQueryString(links.previous).toString()
     : "#";
-  const nextPage = links ? extractQueryString(links.next).toString() : "#";
-  const order = links ? extractQueryString(links.next).get("order") : "#";
+  const nextPage = links?.next
+    ? extractQueryString(links.next).toString()
+    : "#";
+  const order = links?.next ? extractQueryString(links.next).get("order") : "#";
 
   useEffect(() => {
     if (tasks) {

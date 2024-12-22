@@ -18,18 +18,18 @@ export function OrderSelect() {
   const [query, setQuery] = useState();
   const navigate = useNavigate();
 
-  const order = tasks
+  const order = tasks?.pagination?.links?.next
     ? extractQueryString(tasks.pagination.links.next).get("order")
     : undefined;
 
   useEffect(() => {
-    if (tasks) {
+    if (tasks?.pagination?.links?.currentPage) {
       let currentPage = extractQueryString(tasks.pagination.links.currentPage);
       let query = currentPage
         ? `/tasks?limit=${currentPage.get("limit")}&page=${currentPage.get(
             "page"
           )}`
-        : "/tasks";
+        : undefined;
       setQuery(query);
     }
   }, [tasks]);
